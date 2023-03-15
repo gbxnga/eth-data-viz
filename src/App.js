@@ -6,17 +6,56 @@ import React, { useMemo, useState, useEffect } from "react";
 import Table from "./Table";
 import "./App.css";
 
+import DataTable  from "react-data-table-component"
+
 function App() {
   /* 
     - Columns is a simple array right now, but it will contain some logic later on. It is recommended by react-table to memoize the columns data
     - Here in this example, we have grouped our columns into two headers. react-table is flexible enough to create grouped table headers
   */
+ const columns = [
+  {
+      name: 'Token',
+      selector: row => {
+        if(row.contract_address.toLowerCase() == "0xdac17f958d2ee523a2206206994597c13d831ec7".toLowerCase()) 
+          return <img src="usdt_logo.png" width={20} />
 
-  const columns = useMemo(
+        if(row.contract_address.toLowerCase() == "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48".toLowerCase()) 
+          return <img src="usdc_logo.png" width={20} />
+
+      },
+      width: "70px"
+  },
+  {
+      name: 'Amount',
+      selector: row => (row.value / 18).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      width: "180px"
+  },
+  {
+      name: 'From',
+      selector: row => row.from_address,
+  },
+  {
+      name: 'To',
+      selector: row => row.to_address,
+  },
+  {
+      name: 'Block Number',
+      selector: row => row.event_block_number,
+  },
+  {
+      name: 'Time',
+      selector: row => row.event_block_time,
+  },
+  
+
+  
+];
+  const columnss = useMemo(
     () => [
       {
         // first group - TV Show
-        Header: "TV Show",
+        Header: "Token Transfers",
         // First group columns
         columns: [
           {
@@ -70,7 +109,7 @@ function App() {
 
   return (
     <div className="App">
-      <Table columns={columns} data={data} />
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }
