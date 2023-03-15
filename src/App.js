@@ -28,7 +28,7 @@ function App() {
   },
   {
       name: 'Amount',
-      selector: row => (row.value / 18).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      selector: row => (row.value / 1000000).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
       width: "180px"
   },
   {
@@ -38,6 +38,10 @@ function App() {
   {
       name: 'To',
       selector: row => row.to_address,
+  },
+  {
+      name: 'Transaction Hash',
+      selector: row => <a href={`https://etherscan.io/tx/${row.event_tx_hash}`} target="_blank">{row.event_tx_hash}</a>,
   },
   {
       name: 'Block Number',
