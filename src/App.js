@@ -32,14 +32,20 @@ function App() {
           return <img src="dai_logo.png" width={20} />
 
         if(row.contract_address.toLowerCase() == "0x4Fabb145d64652a948d72533023f6E7A623C7C53".toLowerCase()) 
-          return <img src="busd_logo.png" width={20} />
+          return <img src="busd_logo_2.png" width={20} />
 
       },
       width: "70px"
   },
   {
       name: 'Amount',
-      selector: row => (row.value / 1000000).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      selector: row => {
+        if(row.contract_address.toLowerCase() == "0x4Fabb145d64652a948d72533023f6E7A623C7C53".toLowerCase()) 
+          return (row.value / 1000000000000000000).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        if(row.contract_address.toLowerCase() == "0x6B175474E89094C44Da98b954EedeAC495271d0F".toLowerCase()) 
+          return (row.value / 1000000000000000000).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        return (row.value / 1000000).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      },
       width: "180px"
   },
   {
