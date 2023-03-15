@@ -122,7 +122,8 @@ function App() {
   return (
     <div className="App">
       <div style={{margin: 30}}>
-      <DataTable columns={columns} data={data} pagination />
+        <h2>Token Transfers on Ethereum</h2>
+        <DataTable columns={columns} data={data} pagination />
       </div>
       
     </div>
