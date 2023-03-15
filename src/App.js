@@ -31,6 +31,9 @@ function App() {
         if(row.contract_address.toLowerCase() == "0x6B175474E89094C44Da98b954EedeAC495271d0F".toLowerCase()) 
           return <img src="dai_logo.png" width={20} />
 
+        if(row.contract_address.toLowerCase() == "0x4Fabb145d64652a948d72533023f6E7A623C7C53".toLowerCase()) 
+          return <img src="busd_logo.png" width={20} />
+
       },
       width: "70px"
   },
