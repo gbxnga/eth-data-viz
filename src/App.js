@@ -54,6 +54,7 @@ function App() {
   {
       name: 'Block Number',
       selector: row => row.event_block_number,
+      width: "150px"
   },
   {
       name: 'Time',
