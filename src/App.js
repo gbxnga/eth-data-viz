@@ -62,6 +62,7 @@ function App() {
   {
       name: 'Time',
       selector: row => <RelativeTime value={row.event_block_time} titleformat="iso8601" /> ,
+      width: "150px"
   },
   
 
