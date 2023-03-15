@@ -8,6 +8,11 @@ import "./App.css";
 
 import DataTable  from "react-data-table-component"
 
+ 
+import RelativeTime from 'react-relative-time'
+
+ 
+
 function App() {
   /* 
     - Columns is a simple array right now, but it will contain some logic later on. It is recommended by react-table to memoize the columns data
@@ -22,6 +27,9 @@ function App() {
 
         if(row.contract_address.toLowerCase() == "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48".toLowerCase()) 
           return <img src="usdc_logo.png" width={20} />
+
+        if(row.contract_address.toLowerCase() == "0x6B175474E89094C44Da98b954EedeAC495271d0F".toLowerCase()) 
+          return <img src="dai_logo.png" width={20} />
 
       },
       width: "70px"
@@ -49,7 +57,7 @@ function App() {
   },
   {
       name: 'Time',
-      selector: row => row.event_block_time,
+      selector: row => <RelativeTime value={row.event_block_time} titleformat="iso8601" /> ,
   },
   
 
@@ -113,7 +121,10 @@ function App() {
 
   return (
     <div className="App">
-      <DataTable columns={columns} data={data} />
+      <div style={{margin: 30}}>
+      <DataTable columns={columns} data={data} pagination />
+      </div>
+      
     </div>
   );
 }
