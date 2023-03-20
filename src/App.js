@@ -191,7 +191,7 @@ function App() {
         <p>Charts and visualization of Ethereum on chain data and smart contracts data.</p>
       </Alert>
         <Row>
-          <Col>
+          <Col xs={12} style={{overflow:"scroll"}}>
             {/* <BarChart
           data={[
             {
@@ -254,7 +254,7 @@ function App() {
               margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
             />
           </Col>
-          <Col>
+          <Col xs={12} style={{overflow:"scroll"}}>
             <h3>Network Utilization</h3>
             <LineChart
               data={[
@@ -286,10 +286,12 @@ function App() {
             />
           </Col>
         </Row>
-        <div style={{ margin: 30 }}>
+        <Row>
+          <Col>
           <h3>Token Transfers on Ethereum</h3>
           <DataTable columns={columns} data={data} pagination />
-        </div>
+          </Col>
+        </Row> 
       </Container>
     
   );
