@@ -186,12 +186,12 @@ function App() {
      
       
       <Container fluid>
-        <Alert variant="info">
+        <Alert variant="info" style={{ marginLeft: -15, marginRight: -15, textAlign: "center"}}>
         <Alert.Heading>Ethereum Data and Stablecoins Dashboard</Alert.Heading>
         <p>Charts and visualization of Ethereum on chain data and smart contracts data.</p>
       </Alert>
         <Row>
-          <Col xs={12} style={{overflow:"scroll"}}>
+          <Col xs={12} md={6} style={{overflow:"scroll"}}>
             {/* <BarChart
           data={[
             {
@@ -254,7 +254,7 @@ function App() {
               margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
             />
           </Col>
-          <Col xs={12} style={{overflow:"scroll"}}>
+          <Col xs={12} md={6} style={{overflow:"scroll"}}>
             <h3>Network Utilization</h3>
             <LineChart
               data={[
