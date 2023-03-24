@@ -251,7 +251,7 @@ function App() {
               {
                 x: (d) => d.x,
                 y: (d) => d.y,
-                yLabel: "↑ Daily close ($)",
+                yLabel: "Number of transactions (per thousand)",
                 width: 500,
                 height: 500,
                 color: "green",
