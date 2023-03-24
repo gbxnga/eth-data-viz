@@ -199,7 +199,7 @@ function App() {
         </p>
       </Alert>
       <Row>
-        <Col xs={12} md={6} style={{ overflow: "scroll" }}>
+        <Col xs={12} md={6} style={{ overflow: "scroll", padding: 15 }}>
           {/* <BarChart
           data={[
             {
@@ -288,7 +288,7 @@ function App() {
             margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           /> */}
         </Col>
-        <Col xs={12} md={6} style={{ overflow: "scroll" }}>
+        <Col xs={12} md={6} style={{ overflow: "scroll", padding: 15 }}>
           <h3>Network Utilization</h3>
           <RD3Component
             data={LineChartWithLabel(
