@@ -289,7 +289,8 @@ function App() {
             margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           /> */}
         </Col>
-        <Col xs={12} md={6} style={{ overflow: "scroll", padding: 15 }}>
+        <Col xs={12} md={6} style={{ overflow: "scroll",  marginTop: 15 }}>
+        <div style={{border: "0.5px solid #666", borderRadius: 3, padding: 15}}>
           <h3>Network Utilization</h3>
           <RD3Component
             data={LineChartWithLabel(
@@ -320,6 +321,7 @@ function App() {
               }
             )}
           />
+          </div>
           {/* <LineChart
             data={[
               {
@@ -351,9 +353,11 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col xs={12}   style={{ overflow: "scroll", marginTop: 15 }}>
+        <div style={{border: "0.5px solid #666", borderRadius: 3, padding: 15}}> 
           <h3>Token Transfers on Ethereum</h3>
           <DataTable columns={columns} data={data} pagination />
+          </div>
         </Col>
       </Row>
     </Container>
