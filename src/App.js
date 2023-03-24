@@ -363,7 +363,7 @@ function App() {
           <div
             style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
           >
-            <h3>Total Stablecoin Transafers Value</h3>
+            <h3>Total Stablecoin Transfers Value</h3>
             <RD3Component
               data={LineChartWithLabel(
                 stableCoinTransfersPerDay.length > 0
