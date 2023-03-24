@@ -164,6 +164,9 @@ function App() {
   console.log({ transactionsPerDay });
   const [blockUtilization, setBlockUtilization] = useState([]);
   console.log({ blockUtilization });
+  const [stableCoinTransfersPerDay, setStableCoinTransfersPerDay] = useState(
+    []
+  );
 
   // Using useEffect to call the API once mounted and set the data
   useEffect(() => {
@@ -183,6 +186,7 @@ function App() {
       console.log({ result });
       setTransactionsPerDayData(result.data.transactionsPerDay);
       setBlockUtilization(result.data.blockUtilization);
+      setStableCoinTransfersPerDay(result.data.stableCoinTransfersPerDay);
     })();
   }, []);
 
@@ -199,7 +203,7 @@ function App() {
         </p>
       </Alert>
       <Row>
-        <Col xs={12} md={6} style={{ overflow: "scroll",  }}>
+        <Col xs={12} md={6} style={{ overflow: "scroll" }}>
           {/* <BarChart
           data={[
             {
@@ -231,35 +235,37 @@ function App() {
           height={400}
           margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
         /> */}
-        <div style={{border: "0.5px solid #666", borderRadius: 3, padding: 15}}>
-          <h3>Number of Ethereum transactions per day</h3>
-          <RD3Component
-            data={LineChartWithLabel(
-              transactionsPerDay.length > 0
-                ? transactionsPerDay
-                    .filter((t) => t.date != null)
-                    .map((t) => {
-                      let date = new Date(t["date"]);
-                      if (date.getFullYear() < 2010) {
-                        date = new Date();
-                      }
-                      return {
-                        y: t["number of transactions"] / 1000,
-                        x: date,
-                      };
-                    })
-                : [{ x: 0, y: 3 }],
-              {
-                x: (d) => d.x,
-                y: (d) => d.y,
-                yLabel: "Number of transactions (per thousand)",
-                width: 500,
-                height: 500,
-                color: "green",
-              }
-            )}
-          />
-</div>
+          <div
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+          >
+            <h3>Number of Ethereum transactions per day</h3>
+            <RD3Component
+              data={LineChartWithLabel(
+                transactionsPerDay.length > 0
+                  ? transactionsPerDay
+                      .filter((t) => t.date != null)
+                      .map((t) => {
+                        let date = new Date(t["date"]);
+                        if (date.getFullYear() < 2010) {
+                          date = new Date();
+                        }
+                        return {
+                          y: t["number of transactions"] / 1000,
+                          x: date,
+                        };
+                      })
+                  : [{ x: 0, y: 3 }],
+                {
+                  x: (d) => d.x,
+                  y: (d) => d.y,
+                  yLabel: "Number of transactions (per thousand)",
+                  width: 500,
+                  height: 500,
+                  color: "green",
+                }
+              )}
+            />
+          </div>
           {/* <LineChart
             data={[
               {
@@ -289,38 +295,104 @@ function App() {
             margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           /> */}
         </Col>
-        <Col xs={12} md={6} style={{ overflow: "scroll",  marginTop: 15 }}>
-        <div style={{border: "0.5px solid #666", borderRadius: 3, padding: 15}}>
-          <h3>Network Utilization</h3>
-          <RD3Component
-            data={LineChartWithLabel(
-              blockUtilization.length > 0
-                ? blockUtilization
-                    .filter((t) => t.date != null)
-                    .map((t) => {
-                      let date = new Date(t["date"]);
-                      if (date.getFullYear() < 2010) {
-                        date = new Date();
-                      }
-                      return {
-                        y: t.gas_utilization * 100,
-                        x: date,
-                      };
-                    })
-                : [{ x: 0, y: 3 }],
+        <Col xs={12} md={6} style={{ overflow: "scroll", marginTop: 15 }}>
+          <div
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+          >
+            <h3>Network Utilization</h3>
+            <RD3Component
+              data={LineChartWithLabel(
+                blockUtilization.length > 0
+                  ? blockUtilization
+                      .filter((t) => t.date != null)
+                      .map((t) => {
+                        let date = new Date(t["date"]);
+                        if (date.getFullYear() < 2010) {
+                          date = new Date();
+                        }
+                        return {
+                          y: t.gas_utilization * 100,
+                          x: date,
+                        };
+                      })
+                  : [{ x: 0, y: 3 }],
+                {
+                  x: (d) => {
+                    console.log("d.date", d.x);
+                    return d.x;
+                  },
+                  y: (d) => d.y,
+                  yLabel: "Block Utilization (%)",
+                  width: 500,
+                  height: 500,
+                  color: "steelblue",
+                }
+              )}
+            />
+          </div>
+          {/* <LineChart
+            data={[
               {
-                x: (d) => {
-                  console.log("d.date", d.x);
-                  return d.x;
-                },
-                y: (d) => d.y,
-                yLabel: "Block Utilization (%)",
-                width: 500,
-                height: 500,
-                color: "steelblue",
-              }
-            )}
-          />
+                label: "Number of Ethereum transactions per day",
+                values:
+                  blockUtilization.length > 0
+                    ? blockUtilization
+                        .filter((t) => t.date != null)
+                        .map((t) => {
+                          let date = new Date(t["date"]);
+                          if (date.getFullYear() < 2010) {
+                            date = new Date();
+                          }
+                          return {
+                            y: t.gas_utilization * 100,
+                            x: date,
+                          };
+                        })
+                    : [{ x: 0, y: 3 }],
+              },
+            ]}
+            xAxis={{ innerTickSize: 6, label: "Date" }}
+            yAxis={{ label: "Number of Transactions" }}
+            shapeColor={"red"}
+            width={600}
+            height={400}
+            margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
+          /> */}
+        </Col>
+        <Col xs={12} md={6} style={{ overflow: "scroll", marginTop: 15 }}>
+          <div
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+          >
+            <h3>Total Stablecoin Transafers Value</h3>
+            <RD3Component
+              data={LineChartWithLabel(
+                stableCoinTransfersPerDay.length > 0
+                  ? stableCoinTransfersPerDay
+                      .filter((t) => t.date != null)
+                      .map((t) => {
+                        let date = new Date(t["date"]);
+                        if (date.getFullYear() < 2010) {
+                          date = new Date();
+                        }
+                        return {
+                          y: t["amount transferred"] / 1000000000000,
+                          x: date,
+                        };
+                      })
+                  : [{ x: 0, y: 3 }],
+                {
+                  x: (d) => {
+                    console.log("d.date", d.x);
+                    return d.x;
+                  },
+                  y: (d) => d.y,
+                  yLabel: "Amount Transferred ($)",
+                  width: 500,
+                  height: 500,
+                  color: "brown",
+                }
+              )}
+            />
           </div>
           {/* <LineChart
             data={[
@@ -353,10 +425,12 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col xs={12}   style={{ overflow: "scroll", marginTop: 15 }}>
-        <div style={{border: "0.5px solid #666", borderRadius: 3, padding: 15}}> 
-          <h3>Token Transfers on Ethereum</h3>
-          <DataTable columns={columns} data={data} pagination />
+        <Col xs={12} style={{ overflow: "scroll", marginTop: 15 }}>
+          <div
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+          >
+            <h3>Token Transfers on Ethereum</h3>
+            <DataTable columns={columns} data={data} pagination />
           </div>
         </Col>
       </Row>
