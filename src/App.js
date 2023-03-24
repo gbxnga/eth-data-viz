@@ -386,7 +386,7 @@ function App() {
                     return d.x;
                   },
                   y: (d) => d.y,
-                  yLabel: "Amount Transferred ($)",
+                  yLabel: "Amount Transferred ($) per million",
                   width: 500,
                   height: 500,
                   color: "brown",
