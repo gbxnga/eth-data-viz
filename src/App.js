@@ -10,6 +10,7 @@ import DataTable from "react-data-table-component";
 
 import RelativeTime from "react-relative-time";
 import rd3 from "react-d3-library";
+
 import { LineChart, d3, BarChart } from "react-d3-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
@@ -20,6 +21,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import LineChartt from "./LineChartt";
+import LineChartWithLabel from "./LineChartWithLabel";
+const RD3Component = rd3.Component;
 function App() {
   /* 
     - Columns is a simple array right now, but it will contain some logic later on. It is recommended by react-table to memoize the columns data
@@ -183,16 +187,20 @@ function App() {
   }, []);
 
   return (
-     
-      
-      <Container fluid>
-        <Alert variant="info" style={{ marginLeft: -15, marginRight: -15, textAlign: "center"}}>
+    <Container fluid>
+      <Alert
+        variant="info"
+        style={{ marginLeft: -15, marginRight: -15, textAlign: "center" }}
+      >
         <Alert.Heading>Ethereum Data and Stablecoins Dashboard</Alert.Heading>
-        <p>Charts and visualization of Ethereum on chain data and smart contracts data.</p>
+        <p>
+          Charts and visualization of Ethereum on chain data and smart contracts
+          data.
+        </p>
       </Alert>
-        <Row>
-          <Col xs={12} md={6} style={{overflow:"scroll"}}>
-            {/* <BarChart
+      <Row>
+        <Col xs={12} md={6} style={{ overflow: "scroll" }}>
+          {/* <BarChart
           data={[
             {
               label: "somethingA",
@@ -223,77 +231,131 @@ function App() {
           height={400}
           margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
         /> */}
+          <h3>Number of Ethereum transactions per day</h3>
+          <RD3Component
+            data={LineChartWithLabel(
+              transactionsPerDay.length > 0
+                ? transactionsPerDay
+                    .filter((t) => t.date != null)
+                    .map((t) => {
+                      let date = new Date(t["date"]);
+                      if (date.getFullYear() < 2010) {
+                        date = new Date();
+                      }
+                      return {
+                        y: t["number of transactions"] / 1000,
+                        x: date,
+                      };
+                    })
+                : [{ x: 0, y: 3 }],
+              {
+                x: (d) => d.x,
+                y: (d) => d.y,
+                yLabel: "↑ Daily close ($)",
+                width: 500,
+                height: 500,
+                color: "green",
+              }
+            )}
+          />
 
-            <h3>Number of Ethereum transactions per day</h3>
-            <LineChart
-              data={[
-                {
-                  label: "Number of Ethereum transactions per day",
-                  values:
-                    transactionsPerDay.length > 0
-                      ? transactionsPerDay
-                          .filter((t) => t.date != null)
-                          .map((t) => {
-                            let date = new Date(t["date"]);
-                            if (date.getFullYear() < 2010) {
-                              date = new Date();
-                            }
-                            return {
-                              y: t["number of transactions"] / 1000,
-                              x: date,
-                            };
-                          })
-                      : [{ x: 0, y: 3 }],
+          {/* <LineChart
+            data={[
+              {
+                label: "Number of Ethereum transactions per day",
+                values:
+                  transactionsPerDay.length > 0
+                    ? transactionsPerDay
+                        .filter((t) => t.date != null)
+                        .map((t) => {
+                          let date = new Date(t["date"]);
+                          if (date.getFullYear() < 2010) {
+                            date = new Date();
+                          }
+                          return {
+                            y: t["number of transactions"] / 1000,
+                            x: date,
+                          };
+                        })
+                    : [{ x: 0, y: 3 }],
+              },
+            ]}
+            xAxis={{ innerTickSize: 6, label: "Date" }}
+            yAxis={{ label: "Number of Transactions" }}
+            shapeColor={"red"}
+            width={600}
+            height={400}
+            margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
+          /> */}
+        </Col>
+        <Col xs={12} md={6} style={{ overflow: "scroll" }}>
+          <h3>Network Utilization</h3>
+          <RD3Component
+            data={LineChartWithLabel(
+              blockUtilization.length > 0
+                ? blockUtilization
+                    .filter((t) => t.date != null)
+                    .map((t) => {
+                      let date = new Date(t["date"]);
+                      if (date.getFullYear() < 2010) {
+                        date = new Date();
+                      }
+                      return {
+                        y: t.gas_utilization * 100,
+                        x: date,
+                      };
+                    })
+                : [{ x: 0, y: 3 }],
+              {
+                x: (d) => {
+                  console.log("d.date", d.x);
+                  return d.x;
                 },
-              ]}
-              xAxis={{ innerTickSize: 6, label: "Date" }}
-              yAxis={{ label: "Number of Transactions" }}
-              shapeColor={"red"}
-              width={600}
-              height={400}
-              margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
-            />
-          </Col>
-          <Col xs={12} md={6} style={{overflow:"scroll"}}>
-            <h3>Network Utilization</h3>
-            <LineChart
-              data={[
-                {
-                  label: "Number of Ethereum transactions per day",
-                  values:
-                    blockUtilization.length > 0
-                      ? blockUtilization
-                          .filter((t) => t.date != null)
-                          .map((t) => {
-                            let date = new Date(t["date"]);
-                            if (date.getFullYear() < 2010) {
-                              date = new Date();
-                            }
-                            return {
-                              y: t.gas_utilization * 100,
-                              x: date,
-                            };
-                          })
-                      : [{ x: 0, y: 3 }],
-                },
-              ]}
-              xAxis={{ innerTickSize: 6, label: "Date" }}
-              yAxis={{ label: "Number of Transactions" }}
-              shapeColor={"red"}
-              width={600}
-              height={400}
-              margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+                y: (d) => d.y,
+                yLabel: "Block Utilization (%)",
+                width: 500,
+                height: 500,
+                color: "steelblue",
+              }
+            )}
+          />
+          {/* <LineChart
+            data={[
+              {
+                label: "Number of Ethereum transactions per day",
+                values:
+                  blockUtilization.length > 0
+                    ? blockUtilization
+                        .filter((t) => t.date != null)
+                        .map((t) => {
+                          let date = new Date(t["date"]);
+                          if (date.getFullYear() < 2010) {
+                            date = new Date();
+                          }
+                          return {
+                            y: t.gas_utilization * 100,
+                            x: date,
+                          };
+                        })
+                    : [{ x: 0, y: 3 }],
+              },
+            ]}
+            xAxis={{ innerTickSize: 6, label: "Date" }}
+            yAxis={{ label: "Number of Transactions" }}
+            shapeColor={"red"}
+            width={600}
+            height={400}
+            margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
+          /> */}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <h3>Token Transfers on Ethereum</h3>
           <DataTable columns={columns} data={data} pagination />
-          </Col>
-        </Row> 
-      </Container>
-    
+        </Col>
+      </Row>
+    </Container>
   );
 }
 export default App;
