@@ -236,7 +236,7 @@ function App() {
           margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
         /> */}
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
             <h3>Number of Ethereum transactions per day</h3>
             <RD3Component
@@ -297,7 +297,7 @@ function App() {
         </Col>
         <Col xs={12} md={6} style={{ overflow: "scroll", marginTop: 15 }}>
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
             <h3>Network Utilization</h3>
             <RD3Component
@@ -361,7 +361,7 @@ function App() {
         </Col>
         <Col xs={12} md={6} style={{ overflow: "scroll", marginTop: 15 }}>
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
             <h3>Total Stablecoin Transfers Value</h3>
             <RD3Component
@@ -427,7 +427,7 @@ function App() {
       <Row>
         <Col xs={12} style={{ overflow: "scroll", marginTop: 15 }}>
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15 }}
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
             <h3>Token Transfers on Ethereum</h3>
             <DataTable columns={columns} data={data} pagination />
