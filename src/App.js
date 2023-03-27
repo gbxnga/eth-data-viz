@@ -167,6 +167,7 @@ function App() {
   const [stableCoinTransfersPerDay, setStableCoinTransfersPerDay] = useState(
     []
   );
+  const [screenWidth] = useState(window.innerWidth);
 
   // Using useEffect to call the API once mounted and set the data
   useEffect(() => {
@@ -188,6 +189,8 @@ function App() {
       setBlockUtilization(result.data.blockUtilization);
       setStableCoinTransfersPerDay(result.data.stableCoinTransfersPerDay);
     })();
+
+    console.log({ screenWidth })
   }, []);
 
   return (
@@ -203,7 +206,7 @@ function App() {
         </p>
       </Alert>
       <Row>
-        <Col xs={12} md={6} style={{ overflow: "scroll" }}>
+        <Col xs={12} md={6} style={{ overflow: "scroll", marginBottom: 15 }}>
           {/* <BarChart
           data={[
             {
@@ -259,7 +262,7 @@ function App() {
                   x: (d) => d.x,
                   y: (d) => d.y,
                   yLabel: "Number of transactions (per thousand)",
-                  width: 500,
+                  width: screenWidth > 600 ? 700 : 500,
                   height: 500,
                   color: "green",
                 }
@@ -295,7 +298,7 @@ function App() {
             margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           /> */}
         </Col>
-        <Col xs={12} md={6} style={{ overflow: "scroll", marginTop: 15 }}>
+        <Col xs={12} md={6} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
             style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
@@ -323,7 +326,7 @@ function App() {
                   },
                   y: (d) => d.y,
                   yLabel: "Block Utilization (%)",
-                  width: 500,
+                  width: screenWidth > 600 ? 700 : 500,
                   height: 500,
                   color: "steelblue",
                 }
@@ -359,7 +362,7 @@ function App() {
             margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           /> */}
         </Col>
-        <Col xs={12} md={6} style={{ overflow: "scroll", marginTop: 15 }}>
+        <Col xs={12} md={6} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
             style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
@@ -387,7 +390,7 @@ function App() {
                   },
                   y: (d) => d.y,
                   yLabel: "Amount Transferred ($) per million",
-                  width: 500,
+                  width: screenWidth > 600 ? 700 : 500,
                   height: 500,
                   color: "brown",
                 }
@@ -425,7 +428,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col xs={12} style={{ overflow: "scroll", marginTop: 15 }}>
+        <Col xs={12} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
             style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
