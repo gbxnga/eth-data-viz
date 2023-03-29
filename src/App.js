@@ -114,6 +114,81 @@ function App() {
       width: "150px",
     },
   ];
+  const columnSwap = [
+    {
+      name: "Direction 0",
+      selector: (row) => {
+         return `${row.token_0_direction}`   
+      },
+      width: "70px",
+    },
+    {
+      name: "Amount 0",
+      selector: (row) => {
+         return `${row.token_0_amount}`   
+      },
+      width: "200px",
+    },
+    {
+      name: "Token 0",
+      selector: (row) => {
+         return row.token_0_symbol   
+      },
+      width: "100px",
+    },
+    {
+      name: "Direction 1",
+      selector: (row) => {
+         return `${row.token_1_direction}`   
+      },
+      width: "70px",
+    },
+    {
+      name: "Amount 1",
+      selector: (row) => {
+         return `${row.token_1_amount}`   
+      },
+      width: "200px",
+    },
+    {
+      name: "Token 1",
+      selector: (row) => {
+         return row.token_1_symbol   
+      },
+      width: "100px",
+    },
+    {
+      name: "From",
+      selector: (row) => row.sender_address,
+    },
+    {
+      name: "To",
+      selector: (row) => row.to_address,
+    },
+    {
+      name: "Transaction Hash",
+      selector: (row) => (
+        <a
+          href={`https://etherscan.io/tx/${row.tx_hash}`}
+          target="_blank"
+        >
+          {row.tx_hash}
+        </a>
+      ),
+    },
+    {
+      name: "Block Number",
+      selector: (row) => row.evt_block_number,
+      width: "150px",
+    },
+    {
+      name: "Time",
+      selector: (row) => (
+        <RelativeTime value={row.evt_block_time} titleformat="iso8601" />
+      ),
+      width: "150px",
+    },
+  ];
   const columnss = useMemo(
     () => [
       {
@@ -167,6 +242,10 @@ function App() {
   const [stableCoinTransfersPerDay, setStableCoinTransfersPerDay] = useState(
     []
   );
+  const [tokenSwapEvents, setTokenSwapEvents] = useState(
+    []
+  );
+  
   const [screenWidth] = useState(window.innerWidth);
 
   // Using useEffect to call the API once mounted and set the data
@@ -188,6 +267,7 @@ function App() {
       setTransactionsPerDayData(result.data.transactionsPerDay);
       setBlockUtilization(result.data.blockUtilization);
       setStableCoinTransfersPerDay(result.data.stableCoinTransfersPerDay);
+      setTokenSwapEvents(result.data.tokenSwapEvents);
     })();
 
     console.log({ screenWidth })
@@ -434,6 +514,16 @@ function App() {
           >
             <h3>Token Transfers on Ethereum</h3>
             <DataTable columns={columns} data={data} pagination />
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} style={{ overflow: "scroll", marginBottom: 15 }}>
+          <div
+            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
+          >
+            <h3>Token Swaps on 🦄 Uniswap V2</h3>
+            <DataTable columns={columnSwap} data={tokenSwapEvents} pagination />
           </div>
         </Col>
       </Row>
