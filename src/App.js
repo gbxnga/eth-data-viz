@@ -275,7 +275,15 @@ function App() {
 
   return (
     <Container fluid>
-      <Alert
+      <div style={{ textAlign: "center", margingTop: 30, marginBottom: 30, paddingTop: 15}}>
+      <img src="eth-logo.png" width={50}  />
+        <h3 style={{ marginTop: 15}}>Ethereum Data and Stablecoins Dashboard</h3>
+        <p>
+          Charts and visualization of Ethereum on chain data and smart contracts
+          data.
+        </p>
+      </div>
+      {/* <Alert
         variant="info"
         style={{ marginLeft: -15, marginRight: -15, textAlign: "center" }}
       >
@@ -284,7 +292,7 @@ function App() {
           Charts and visualization of Ethereum on chain data and smart contracts
           data.
         </p>
-      </Alert>
+      </Alert> */}
       <Row>
         <Col xs={12} md={4} style={{ overflow: "scroll", marginBottom: 15 }}>
           {/* <BarChart
@@ -321,7 +329,7 @@ function App() {
           <div
             style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
-            <h3>Number of Ethereum transactions per day</h3>
+            <h3>Transactions per day</h3>
             <RD3Component
               data={LineChartWithLabel(
                 transactionsPerDay.length > 0
