@@ -172,7 +172,7 @@ function App() {
           href={`https://etherscan.io/tx/${row.tx_hash}`}
           target="_blank"
         >
-          ggg {row.tx_hash}
+          {row.tx_hash}
         </a>
       ),
     },
