@@ -117,43 +117,51 @@ function App() {
   const columnSwap = [
     {
       name: "Direction 0",
-      selector: (row) => {
-         return `${row.token_0_direction}`   
+      selector: ({ token_0_direction: direction }) => {
+        return (
+          <Alert variant={direction == "IN" ? "success": "danger"} style={{ padding: 2, borderRadius: 2 }}>
+            {direction}
+          </Alert>
+        );
       },
-      width: "70px",
+      width: "100px",
     },
     {
       name: "Amount 0",
       selector: (row) => {
-         return `${row.token_0_amount}`   
+        return `${row.token_0_amount}`;
       },
       width: "200px",
     },
     {
       name: "Token 0",
       selector: (row) => {
-         return row.token_0_symbol   
+        return row.token_0_symbol;
       },
       width: "100px",
     },
     {
       name: "Direction 1",
-      selector: (row) => {
-         return `${row.token_1_direction}`   
+      selector: ({ token_1_direction: direction }) => {
+        return (
+          <Alert variant={direction == "IN" ? "success": "danger"} style={{ padding: 2, borderRadius: 2 }}>
+            {direction}
+          </Alert>
+        );
       },
-      width: "70px",
+      width: "100px",
     },
     {
       name: "Amount 1",
       selector: (row) => {
-         return `${row.token_1_amount}`   
+        return `${row.token_1_amount}`;
       },
       width: "200px",
     },
     {
       name: "Token 1",
       selector: (row) => {
-         return row.token_1_symbol   
+        return row.token_1_symbol;
       },
       width: "100px",
     },
@@ -168,10 +176,7 @@ function App() {
     {
       name: "Transaction Hash",
       selector: (row) => (
-        <a
-          href={`https://etherscan.io/tx/${row.tx_hash}`}
-          target="_blank"
-        >
+        <a href={`https://etherscan.io/tx/${row.tx_hash}`} target="_blank">
           {row.tx_hash}
         </a>
       ),
@@ -242,10 +247,8 @@ function App() {
   const [stableCoinTransfersPerDay, setStableCoinTransfersPerDay] = useState(
     []
   );
-  const [tokenSwapEvents, setTokenSwapEvents] = useState(
-    []
-  );
-  
+  const [tokenSwapEvents, setTokenSwapEvents] = useState([]);
+
   const [screenWidth] = useState(window.innerWidth);
 
   // Using useEffect to call the API once mounted and set the data
@@ -270,14 +273,23 @@ function App() {
       setTokenSwapEvents(result.data.tokenSwapEvents);
     })();
 
-    console.log({ screenWidth })
+    console.log({ screenWidth });
   }, []);
 
   return (
     <Container fluid>
-      <div style={{ textAlign: "center", margingTop: 30, marginBottom: 30, paddingTop: 15}}>
-      <img src="eth-logo.png" width={50}  />
-        <h3 style={{ marginTop: 15}}>Ethereum Data and Stablecoins Dashboard</h3>
+      <div
+        style={{
+          textAlign: "center",
+          margingTop: 30,
+          marginBottom: 30,
+          paddingTop: 15,
+        }}
+      >
+        <img src="eth-logo.png" width={50} />
+        <h3 style={{ marginTop: 15 }}>
+          Ethereum Data and Stablecoins Dashboard
+        </h3>
         <p>
           Charts and visualization of Ethereum on chain data and smart contracts
           data.
@@ -327,7 +339,12 @@ function App() {
           margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
         /> */}
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
+            style={{
+              border: "0.5px solid #666",
+              borderRadius: 3,
+              padding: 15,
+              backgroundColor: "white",
+            }}
           >
             <h3>Transactions per day</h3>
             <RD3Component
@@ -388,7 +405,12 @@ function App() {
         </Col>
         <Col xs={12} md={4} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
+            style={{
+              border: "0.5px solid #666",
+              borderRadius: 3,
+              padding: 15,
+              backgroundColor: "white",
+            }}
           >
             <h3>Network Utilization</h3>
             <RD3Component
@@ -452,7 +474,12 @@ function App() {
         </Col>
         <Col xs={12} md={4} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
+            style={{
+              border: "0.5px solid #666",
+              borderRadius: 3,
+              padding: 15,
+              backgroundColor: "white",
+            }}
           >
             <h3>Total Stablecoin Transfers Value</h3>
             <RD3Component
@@ -518,7 +545,12 @@ function App() {
       <Row>
         <Col xs={12} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
+            style={{
+              border: "0.5px solid #666",
+              borderRadius: 3,
+              padding: 15,
+              backgroundColor: "white",
+            }}
           >
             <h3>Token Transfers on Ethereum</h3>
             <DataTable columns={columns} data={data} pagination />
@@ -528,7 +560,12 @@ function App() {
       <Row>
         <Col xs={12} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
-            style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
+            style={{
+              border: "0.5px solid #666",
+              borderRadius: 3,
+              padding: 15,
+              backgroundColor: "white",
+            }}
           >
             <h3>Token Swaps on 🦄 Uniswap V2</h3>
             <DataTable columns={columnSwap} data={tokenSwapEvents} pagination />
