@@ -172,7 +172,7 @@ function App() {
           href={`https://etherscan.io/tx/${row.tx_hash}`}
           target="_blank"
         >
-          {row.tx_hash}
+          ggg {row.tx_hash}
         </a>
       ),
     },
@@ -286,7 +286,7 @@ function App() {
         </p>
       </Alert>
       <Row>
-        <Col xs={12} md={6} style={{ overflow: "scroll", marginBottom: 15 }}>
+        <Col xs={12} md={4} style={{ overflow: "scroll", marginBottom: 15 }}>
           {/* <BarChart
           data={[
             {
@@ -378,7 +378,7 @@ function App() {
             margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           /> */}
         </Col>
-        <Col xs={12} md={6} style={{ overflow: "scroll", marginBottom: 15 }}>
+        <Col xs={12} md={4} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
             style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
@@ -442,7 +442,7 @@ function App() {
             margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           /> */}
         </Col>
-        <Col xs={12} md={6} style={{ overflow: "scroll", marginBottom: 15 }}>
+        <Col xs={12} md={4} style={{ overflow: "scroll", marginBottom: 15 }}>
           <div
             style={{ border: "0.5px solid #666", borderRadius: 3, padding: 15, backgroundColor: "white" }}
           >
